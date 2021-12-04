@@ -1,0 +1,248 @@
+@import "../sass/utils/vars.scss";
+@import "../sass/utils/mixins.scss";
+@import "../sass/utils/colors.scss";
+@import "../sass/utils/fonts.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+body {
+  @include font();
+  @include fields();
+  position: relative;
+  min-width: $mobile;
+  width: 100%;
+  margin: 0 auto;
+  font-family: $font;
+  background-color: $bg;
+  color: $black;
+  overflow-x: hidden;
+}
+
+section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.container img {
+  height: 100%;
+  width: 100%;
+}
+.all-tooltip {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.tooltip-content {
+  position: absolute;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+  width: 90vw;
+  max-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tooltip-content .arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 10px solid transparent;
+  border-bottom-color: rgb(255, 255, 255);
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -100%) rotate(0deg);
+}
+
+.pin {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 20px;
+  width: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgb(255, 255, 255);
+      border-radius: 50%;
+      animation: puls 1s ease infinite;
+
+      .tooltip:nth-child(2n) & {
+        animation-delay: 0.3s;
+      }
+      
+      .tooltip:nth-child(3n) & {
+        animation-delay: 0.6s;
+      }
+
+      .tooltip:nth-child(4n) & {
+        animation-delay: 0.9s;
+      }
+    }
+}
+
+.tooltip.active .tooltip-content {
+  opacity: 1;
+  pointer-events: all;
+  display: block;
+}
+
+/* Custom Style for tooltip-1 */
+.tooltip-1 .pin {
+  top: 27%;
+  left: 73%;
+}
+/* custom style for tooltip-2 */
+.tooltip-2 .pin {
+  top: 69%;
+  left: 60%;
+}
+/* Custom style for tooltip-3 */
+.tooltip-3 .pin {
+  top: 37%;
+  left: 56%;
+}
+/* Custom style for tooltip-4 */
+.tooltip-4 .pin {
+  top: 75%;
+  left: 20%;
+}
+/* Custom style for tooltip-5 */
+.tooltip-5 .pin {
+  top: 32%;
+  left: 89%;
+}
+
+/* Puls Effect For Pins */
+
+@keyframes puls {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+
+
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  color: $grey;  
+  padding: 35px 20px 20px;
+  background-color: $white;
+}
+
+.content__title {
+  @include font(16px, 20px, 700);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: $henderson;
+}
+
+.content__text {
+  margin-bottom: 10px;
+}
+
+.content__price {
+  font-weight: 700;
+  @include font(20px, 23px, 700);
+  margin-bottom: 10px;
+}
+
+.content__button {
+  @include font(14px, 16px, 400);
+  background: linear-gradient(to right top, $henderson, #1450aa);
+  color: $white !important;
+  padding: 10px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: $tr;
+}
+
+.bubble {
+  position: absolute;
+  background-color: $white;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;    
+
+  animation: bubbles 0.5s linear infinite;
+}
+
+@keyframes bubbles {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}
+
+.content__new {
+  @include font(11px, 14px, 400);
+  position: absolute;
+  content: "";
+  top: 0px;
+  right: 0;
+  background-color: $accent;
+  color: $white;
+  padding: 6px 10px;
+}
+
+
+.content__offer {
+  @include font(11px, 14px, 400);
+  position: absolute;
+  content: "";
+  top: 0px;
+  right: 0;
+  background-color: #1450aa;
+  color: $white;
+  padding: 6px 10px;
+}
