@@ -4,9 +4,10 @@
   const tooltips = document.querySelectorAll(".all-tooltip .tooltip");
   const fullDiv = document.querySelector("section");
   const container = document.querySelector(".container");
-  let timeoutId;
+  let timeoutId; // window.addEventListener("DOMContentLoaded", contentPosition);
+
+  window.onload = contentPosition;
   window.addEventListener("resize", contentPosition);
-  window.addEventListener("DOMContentLoaded", contentPosition);
 
   function contentPosition() {
     tooltips.forEach(tooltip => {
