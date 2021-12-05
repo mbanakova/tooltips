@@ -107,7 +107,7 @@ section {
       width: 100%;
       background-color: rgb(255, 255, 255);
       border-radius: 50%;
-      animation: puls 1s ease infinite;
+      animation: pulse 1s ease infinite;
 
       .tooltip:nth-child(2n) & {
         animation-delay: 0.3s;
@@ -154,7 +154,7 @@ section {
   left: 89%;
 }
 
-@keyframes puls {
+@keyframes pulse {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -172,7 +172,7 @@ section {
   align-items: center;
   position: relative;
   color: $grey;  
-  padding: 35px 20px 20px;
+  padding: 35px 30px 20px;
   background-color: $white;
 }
 
@@ -235,7 +235,7 @@ section {
   0% {
     width: 0;
     height: 0;
-    opacity: 0.03;
+    opacity: 0.05;
   }
 
   100% {

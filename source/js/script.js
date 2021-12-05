@@ -18,25 +18,11 @@ function contentPosition() {
     const content = tooltip.querySelector(".tooltip-content");
     const arrow = tooltip.querySelector(".arrow");
 
-    // function getContentCoords(elem) {
-    //   const rect = elem.getBoundingClientRect();
-    
-    //   return {
-    //     y: Math.round(rect.top + window.pageYOffset),
-    //     x: Math.round(rect.left + window.pageXOffset),
-    //   };
-    // }
-
-    // getContentCoords(pin);
-    // console.log(getContentCoords(pin).x, getContentCoords(pin).y);
-
     if (pinLeft + content.offsetWidth / 2 > fullDiv.offsetWidth) {
       const extraLeft = fullDiv.offsetWidth - (pinLeft + content.offsetWidth / 2);
-      // console.log('right-conflict', tooltip)
       content.style.left = `${pinLeft - content.offsetWidth / 2 + extraLeft - pinGap}px`;
       content.style.top = `${pin.offsetTop + pinSize + pinGap}px`;
     } else if (pin.offsetLeft + container.offsetLeft < content.offsetWidth / 2) {
-      // console.log('left conflict', pin.offsetLeft, container.offsetLeft);
       content.style.left = `${-container.offsetLeft + pinGap}px`;
       content.style.top = `${pin.offsetTop + pinSize + pinGap}px`;
     } else {
@@ -54,6 +40,7 @@ tooltips.forEach(tooltip => {
   pin.addEventListener("mouseover", () => {
     tooltip.classList.add("active");
   });
+  
   // если мышь ушла с пина и зашла на карточку (у неё 2 сек)
   pin.addEventListener("mouseleave", () => {
     timeoutId = setTimeout(() => {
