@@ -32,14 +32,14 @@ section {
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   overflow-x: hidden;
 }
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
   position: relative;
 }
 .container img {
@@ -57,7 +57,7 @@ section {
 .tooltip-content {
   position: absolute;
   box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
-  width: 90vw;
+  // width: 90vw;
   max-width: 200px;
   opacity: 0;
   pointer-events: none;
@@ -118,33 +118,30 @@ section {
   display: block;
 }
 
-/* Custom Style for tooltip-1 */
 .tooltip-1 .pin {
-  top: 27%;
-  left: 73%;
-}
-/* custom style for tooltip-2 */
-.tooltip-2 .pin {
-  top: 69%;
-  left: 60%;
-}
-/* Custom style for tooltip-3 */
-.tooltip-3 .pin {
-  top: 37%;
-  left: 56%;
-}
-/* Custom style for tooltip-4 */
-.tooltip-4 .pin {
   top: 75%;
   left: 20%;
 }
-/* Custom style for tooltip-5 */
+
+.tooltip-2 .pin {
+  top: 37%;
+  left: 56%;
+}
+
+.tooltip-3 .pin {
+  top: 69%;
+  left: 60%;
+}
+
+.tooltip-4 .pin {
+  top: 27%;
+  left: 73%;
+}
+
 .tooltip-5 .pin {
   top: 32%;
   left: 89%;
 }
-
-/* Puls Effect For Pins */
 
 @keyframes puls {
   0% {
@@ -157,9 +154,6 @@ section {
     opacity: 0;
   }
 }
-
-
-
 
 .content {
   display: flex;
@@ -174,18 +168,29 @@ section {
 .content__title {
   @include font(16px, 20px, 700);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: $henderson;
 }
 
 .content__text {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .content__price {
   font-weight: 700;
   @include font(20px, 23px, 700);
   margin-bottom: 10px;
+
+  &--old {
+    @include font(10px, 13px, 700);
+    margin-bottom: 5px;
+    color: #8b8b8b;
+    text-decoration: line-through;
+
+    & ~ .content__price {
+      color: #c41010;
+    }
+  }
 }
 
 .content__button {
@@ -194,10 +199,16 @@ section {
   color: $white !important;
   padding: 10px 20px;
   text-align: center;
+  text-decoration: none;
+  display: block;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   transition: $tr;
+
+  &:active {
+    color: #cac9c9 !important;
+  }
 }
 
 .bubble {
@@ -206,15 +217,14 @@ section {
   transform: translate(-50%, -50%);
   pointer-events: none;
   border-radius: 50%;    
-
-  animation: bubbles 0.5s linear infinite;
+  animation: bubbles 1s linear infinite;
 }
 
 @keyframes bubbles {
   0% {
     width: 0;
     height: 0;
-    opacity: 0.5;
+    opacity: 0.03;
   }
 
   100% {
@@ -224,25 +234,25 @@ section {
   }
 }
 
-.content__new {
-  @include font(11px, 14px, 400);
+.content__info {
+  @include font(11px, 14px, 700);
   position: absolute;
   content: "";
   top: 0px;
   right: 0;
-  background-color: $accent;
   color: $white;
   padding: 6px 10px;
-}
 
+  &--new {
+    background-color: #d28f4d;
+  }
 
-.content__offer {
-  @include font(11px, 14px, 400);
-  position: absolute;
-  content: "";
-  top: 0px;
-  right: 0;
-  background-color: #1450aa;
-  color: $white;
-  padding: 6px 10px;
+  &--offer {
+    background-color: #a616da;
+  }
+
+  &--sale {
+    background-color: #c41010;
+    ;
+  }
 }

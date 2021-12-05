@@ -1,3 +1,5 @@
+
+(function () {
 const tooltips = document.querySelectorAll(".all-tooltip .tooltip");
 const fullDiv = document.querySelector("section");
 const container = document.querySelector(".container");
@@ -6,41 +8,51 @@ window.addEventListener("resize", contentPosition);
 window.addEventListener("DOMContentLoaded", contentPosition);
 
 function contentPosition() {
-  tooltips.forEach((tooltip) => {
+  tooltips.forEach(tooltip => {
     const pin = tooltip.querySelector(".pin");
+    const pinSize = 20;
+    const pinGap = pinSize / 2;
+    const pinLeft = pin.offsetLeft;
     const content = tooltip.querySelector(".tooltip-content");
     const arrow = tooltip.querySelector(".arrow");
-    const pinLeft = pin.offsetLeft;
+
+    // function getContentCoords(elem) {
+    //   const rect = elem.getBoundingClientRect();
+    
+    //   return {
+    //     y: Math.round(rect.top + window.pageYOffset),
+    //     x: Math.round(rect.left + window.pageXOffset),
+    //   };
+    // }
+
+    // getContentCoords(pin);
+    // console.log(getContentCoords(pin).x, getContentCoords(pin).y);
 
     if (pinLeft + content.offsetWidth / 2 > fullDiv.offsetWidth) {
-      const extraLeft =
-        fullDiv.offsetWidth - (pinLeft + content.offsetWidth / 2);
+      const extraLeft = fullDiv.offsetWidth - (pinLeft + content.offsetWidth / 2);
       // console.log('right-conflict', tooltip)
-      content.style.left =
-        pinLeft - content.offsetWidth / 2 + extraLeft - 40 + "px";
-      content.style.top = pin.offsetTop + 40 + "px";
-    } else if (
-      pin.offsetLeft + container.offsetLeft <
-      content.offsetWidth / 2
-    ) {
-      // console.log('left conflict', pin.offsetLeft)
-      content.style.left = -container.offsetLeft + "px";
-      content.style.top = pin.offsetTop + 30 + "px";
+      content.style.left = `${pinLeft - content.offsetWidth / 2 + extraLeft - pinGap}px`;
+      content.style.top = `${pin.offsetTop + pinSize + pinGap}px`;
+    } else if (pin.offsetLeft + container.offsetLeft < content.offsetWidth / 2) {
+      // console.log('left conflict', pin.offsetLeft, container.offsetLeft);
+      content.style.left = `${-container.offsetLeft + pinGap}px`;
+      content.style.top = `${pin.offsetTop + pinSize + pinGap}px`;
     } else {
       content.style.left = `${pinLeft - content.offsetWidth / 2}px`;
-      content.style.top = `${pin.offsetTop + 30}px`;
+      content.style.top = `${pin.offsetTop + pinSize + pinGap}px`;
     }
     arrow.style.left = `${pinLeft - content.offsetLeft}px`;
     content.style.zIndex = 50;
   });
 }
-tooltips.forEach((tooltip) => {
+
+tooltips.forEach(tooltip => {
   const pin = tooltip.querySelector(".pin");
   const content = tooltip.querySelector(".tooltip-content");
   pin.addEventListener("mouseover", () => {
-    console.log(pin.offsetLeft);
     tooltip.classList.add("active");
   });
+  // если мышь ушла с пина и зашла на карточку (у неё 2 сек)
   pin.addEventListener("mouseleave", () => {
     timeoutId = setTimeout(() => {
       if (!tooltip.classList.contains("content-hover")) {
@@ -61,25 +73,8 @@ tooltips.forEach((tooltip) => {
   });
 });
 
-// // *********************
-// // This Code is for only the floating card in right bottom corner
-// // **********************
-
-// const WebCifarIcon = document.querySelector("#webCifar-icon");
-// const WebCifarEl = document.querySelector("#webCifar");
-// const close = WebCifarEl.querySelector(".close");
-// const youtubeLink = document.querySelector(".youtubeLink");
-
-// WebCifarIcon.addEventListener("click", () => {
-//   WebCifarEl.classList.add("active");
-// });
-// close.addEventListener("click", () => {
-//   WebCifarEl.classList.remove("active");
-// });
-
-// youtubeLink.setAttribute("href", "https://youtu.be/e_jEquJo7y8");
-
-function getCursorPosition(elem, event) {
+// пузырьки на кнопке
+function getClickCoords(elem, event) {
   const rect = elem.getBoundingClientRect();
   const x = Math.round(event.clientX - rect.left);
   const y = Math.round(event.clientY - rect.top);
@@ -88,22 +83,22 @@ function getCursorPosition(elem, event) {
 
 const buttons = document.querySelectorAll('.content__button');
 buttons.forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    getCursorPosition(btn, e);
+  btn.addEventListener('mousemove', function(evt) {
+    getClickCoords(btn, evt);
 
-    const coords = getCursorPosition(btn, e);
+    const coords = getClickCoords(btn, evt);
     const x = coords.x;
     const y = coords.y;
 
-    const ripples = document.createElement('span');
-    ripples.classList.add("bubble");
-    ripples.style.left = `${x}px`;
-    ripples.style.top = `${y}px`;
-    this.appendChild(ripples);
+    const bubbles = document.createElement('span');
+    bubbles.classList.add("bubble");
+    bubbles.style.left = `${x}px`;
+    bubbles.style.top = `${y}px`;
+    this.appendChild(bubbles);
 
     setTimeout(() => {
-      ripples.remove()
-    }, 500);
+      bubbles.remove()
+    }, 1000);
   })
 })
 
@@ -117,3 +112,4 @@ buttons.forEach(btn => {
   let priceDiv = document.querySelectorAll(".js-price");
 
   priceDiv.forEach(div => div.textContent = splitPrice(div.textContent));
+})();
